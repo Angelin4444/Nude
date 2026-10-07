@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NUDE — Explore</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <header class="nav">
+
+        <a href="index.html" class="logo">
+            NUDE<span>.</span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="quiz.html">Skin Quiz</a>
+            <a href="products.html" class="active">
+                Explore
+            </a>
+        </nav>
+
+        <a href="quiz.html" class="nav-cta">
+            Find My Routine
+        </a>
+
+    </header>
+
+
+    <main class="products-page">
+
+        <section class="products-header">
+
+            <p class="eyebrow">
+                THE DISPENSARY
+            </p>
+
+            <h1>
+                Explore
+                <em>skincare.</em>
+            </h1>
+
+            <p>
+                A live collection powered by product data.
+            </p>
+
+        </section>
+
+
+        <section class="products-section section-padding">
+
+            <div class="product-toolbar">
+
+                <span id="productCount">
+                    Loading...
+                </span>
+
+                <button
+                    class="filter-button active-filter"
+                    data-filter="all">
+                    All
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-filter="skin-care">
+                    Skin care
+                </button>
+
+            </div>
+
+
+            <div
+                class="full-product-grid"
+                id="productsGrid">
+
+                <div class="product-loading">
+                    Loading products...
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="footer">
+
+        <div class="logo">
+            NUDE<span>.</span>
+        </div>
+
+        <p>
+            Skin discovery, simplified.
+        </p>
+
+        <span>
+            © 2026
+        </span>
+
+    </footer>
+
+
+    <script src="js/products.js"></script>
+
+</body>
+</html>
