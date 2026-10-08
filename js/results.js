@@ -85,6 +85,181 @@ const profile =
 
 
 // ======================================
+// WHY THIS MATCH — PERSONALIZED LOGIC
+// ======================================
+
+const whyMatchData = {
+
+    // ==================================
+    // QUESTION 1 — SKIN TYPE
+    // ==================================
+
+    skinType: {
+
+        dry: {
+            label: "Dry skin",
+            text:
+                "Your skin needs extra moisture, so a hydrating serum with hyaluronic acid followed by a richer moisturizer would be a good match."
+        },
+
+        oily: {
+            label: "Oily skin",
+            text:
+                "Your skin is more comfortable with lightweight hydration, so a gel moisturizer and non-comedogenic products can help avoid a heavy feeling."
+        },
+
+        combination: {
+            label: "Combination skin",
+            text:
+                "Your skin has different needs in different areas, so lightweight hydration works well while richer moisturizer can be used only where your skin feels dry."
+        },
+
+        sensitive: {
+            label: "Sensitive skin",
+            text:
+                "Your skin can react easily, so a simple routine with gentle, fragrance-free products and soothing hydration is a better match."
+        },
+
+        normal: {
+            label: "Balanced skin",
+            text:
+                "Your skin appears relatively balanced, so you can keep the routine simple and let your main skin goal guide the treatment step."
+        }
+
+    },
+
+
+    // ==================================
+    // QUESTION 2 — MAIN SKIN GOAL
+    // ==================================
+
+    goal: {
+
+        hydration: {
+            label: "Hydration",
+            text:
+                "Your main goal is hydration, so look for humectants such as hyaluronic acid followed by a moisturizer to help keep your skin comfortable and hydrated."
+        },
+
+        clarity: {
+            label: "Clearer skin",
+            text:
+                "Your focus is clarity, so lightweight, non-comedogenic products and gentle pore-focused ingredients can help keep the routine balanced."
+        },
+
+        soothing: {
+            label: "Calm + barrier relief",
+            text:
+                "Your priority is calming the skin, so gentle cleansing, soothing hydration and a barrier-supporting moisturizer are a better fit."
+        },
+
+        radiance: {
+            label: "Radiance",
+            text:
+                "Your goal is a brighter, more even-looking complexion, so consistent hydration and daily sun protection should form the base of your routine."
+        }
+
+    },
+
+
+    // ==================================
+    // QUESTION 3 — SUN REACTION
+    // ==================================
+
+    sun: {
+
+        burnsFast: {
+            label: "Burns easily",
+            text:
+                "Because your skin burns easily in the sun, daily broad-spectrum SPF 30+ is especially important. A gentle sunscreen made for sensitive skin can also be a comfortable choice."
+        },
+
+        tansSlowly: {
+            label: "Sometimes burns, then tans",
+            text:
+                "Your skin can still react to strong sun exposure, so daily broad-spectrum SPF and consistent protection are a good match for your routine."
+        },
+
+        tansEasily: {
+            label: "Tans easily",
+            text:
+                "Even if your skin rarely burns, daily UV protection still matters, so a lightweight broad-spectrum sunscreen should remain part of your routine."
+        },
+
+        getsOily: {
+            label: "Sunscreen feels oily",
+            text:
+                "Since sunscreen can make your skin feel oily, a lightweight, non-comedogenic or gel-style sunscreen can give you protection without feeling too heavy."
+        },
+
+        sometimes: {
+            label: "Moderate sun reaction",
+            text:
+                "Your skin can handle some sun but still benefits from consistent daily UV protection, so a comfortable broad-spectrum sunscreen is a good fit."
+        }
+
+    },
+
+
+    // ==================================
+    // QUESTION 4 — TEXTURE
+    // ==================================
+
+    texture: {
+
+        cream: {
+            label: "Rich cream",
+            text:
+                "You prefer a richer cream texture, so a nourishing moisturizer can give your routine the comfortable, cushioned finish you enjoy."
+        },
+
+        gel: {
+            label: "Cooling gel",
+            text:
+                "You prefer lightweight gel textures, so gel-based hydration can give you moisture without leaving a heavy or greasy finish."
+        },
+
+        fluid: {
+            label: "Silky fluid",
+            text:
+                "You prefer a silky fluid, so lightweight milky lotions and fluid serums would fit naturally into your routine."
+        },
+
+        balm: {
+            label: "Barrier balm",
+            text:
+                "You prefer a balm-like texture, so a richer barrier-supporting moisturizer can give your skin a more sealed and comforting finish."
+        }
+
+    }
+
+};
+
+
+// ======================================
+// GET PERSONALIZED WHY-MATCH TEXT
+// ======================================
+
+function getWhyMatchData(category, value) {
+
+    if (
+        whyMatchData[category] &&
+        whyMatchData[category][value]
+    ) {
+
+        return whyMatchData[category][value];
+
+    }
+
+    return {
+        label: formatValue(value),
+        text: "This choice has been included in your personalized routine."
+    };
+
+}
+
+
+// ======================================
 // UPDATE PROFILE UI
 // ======================================
 
@@ -108,16 +283,138 @@ document.getElementById("eveningText").textContent =
     profile.evening;
 
 
-document.getElementById("whySkin").textContent =
-    formatValue(storedAnswers.skinType);
+// ======================================
+// WHY THIS MATCH — UPDATE EXISTING CARDS
+// ======================================
+
+const skinMatch =
+    getWhyMatchData(
+        "skinType",
+        storedAnswers.skinType
+    );
+
+const goalMatch =
+    getWhyMatchData(
+        "goal",
+        storedAnswers.goal
+    );
+
+const sunMatch =
+    getWhyMatchData(
+        "sun",
+        storedAnswers.sun ||
+        storedAnswers.sunReaction
+    );
+
+const textureMatch =
+    getWhyMatchData(
+        "texture",
+        storedAnswers.texture
+    );
 
 
-document.getElementById("whyGoal").textContent =
-    formatValue(storedAnswers.goal);
+// Existing skin answer area
+const whySkin =
+    document.getElementById("whySkin");
+
+if (whySkin) {
+
+    whySkin.textContent =
+        skinMatch.text;
+
+}
 
 
-document.getElementById("whyTexture").textContent =
-    formatValue(storedAnswers.texture);
+// Existing goal answer area
+const whyGoal =
+    document.getElementById("whyGoal");
+
+if (whyGoal) {
+
+    whyGoal.textContent =
+        goalMatch.text;
+
+}
+
+
+// Existing texture answer area
+const whyTexture =
+    document.getElementById("whyTexture");
+
+if (whyTexture) {
+
+    whyTexture.textContent =
+        textureMatch.text;
+
+}
+
+
+// ======================================
+// ADD SUN MATCH WITHOUT BREAKING EXISTING UI
+// ======================================
+
+function addSunMatchCard() {
+
+    // If you already add a sun element later,
+    // this will use it automatically.
+    const existingSun =
+        document.getElementById("whySun");
+
+    if (existingSun) {
+
+        existingSun.textContent =
+            sunMatch.text;
+
+        return;
+
+    }
+
+
+    /*
+       If there is no sun card in the current HTML,
+       create one underneath the existing
+       "Why this match" content.
+    */
+
+    const textureElement =
+        document.getElementById("whyTexture");
+
+    if (!textureElement) return;
+
+
+    const parent =
+        textureElement.parentElement;
+
+    if (!parent) return;
+
+
+    const sunCard =
+        document.createElement("div");
+
+    sunCard.className =
+        "why-match-item";
+
+
+    sunCard.innerHTML = `
+
+        <span class="why-match-label">
+            SUN REACTION
+        </span>
+
+        <p class="why-match-text">
+            ${sunMatch.text}
+        </p>
+
+    `;
+
+
+    parent.parentElement
+        .appendChild(sunCard);
+
+}
+
+
+addSunMatchCard();
 
 
 // ======================================
